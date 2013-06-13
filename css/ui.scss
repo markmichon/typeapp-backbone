@@ -1,0 +1,108 @@
+body {
+  margin:0;
+}
+
+
+/* $ Toolbars
+**************************************************************************/
+.toolbar {
+  position: absolute;
+  top:0;
+  left:0;
+  bottom:0;
+  width: 75px;
+  background-color: hsl(203,16%,20%);
+  color: #efefef;
+  z-index:10;
+  text-align: center;
+  border-right: 5px solid hsl(203,16%,10%);
+}
+
+.toolbar-item {
+  color: #efefef;
+  display: block;
+  width:100%;
+  line-height: 75px;
+  // padding: 20px;
+  font-size: 36px;
+}
+
+.toolbar-item-active, .toolbar-item:hover {
+  background-color: hsl(203,16%,30%);
+}
+
+/* $Panel Styles
+**************************************************************************/
+
+.panel {
+  background-color: hsl(203,16%,40%);
+  width:240px;
+  // position: relative;
+  position: absolute;
+  left:-315px;
+  top:0;
+  height:100%;
+  overflow: hidden;
+  @include vendor(transition, left .5s ease-in-out);
+}
+.activePanel {
+  left:75px;
+}
+// .panel {
+//   display: inline-block;
+//   height:100%;
+//   width: 240px;
+//   margin-right:$base-spacing-unit;
+//   left:100px;
+// }
+
+.panel-title {
+  @include font-size(24px);
+  text-align: center;
+}
+
+.panel-options {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.panel-options::-webkit-scrollbar {
+  display: none;
+}
+
+.search-box {
+  padding:$base-spacing-unit;
+  margin-bottom: $base-spacing-unit;
+}
+
+.font-list {
+  margin:0;
+  padding:0;
+  list-style: none;
+  color: $white;
+    li {
+      padding: 0 $base-spacing-unit;
+      line-height: 3em;
+      &:hover {
+        background-color: hsl(203,16%,50%);
+      }
+    }
+}
+
+.control-group {
+  background-color: hsl(203,16%,50%);
+  padding: $half-spacing-unit $base-spacing-unit;
+}
+
+/* $ Content
+**************************************************************************/
+.page-block {
+  display: inline-block;
+  width: 640px;
+  margin-left:400px;
+}
+
+
+#content {
+
+}

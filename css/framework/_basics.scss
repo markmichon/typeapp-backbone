@@ -1,0 +1,71 @@
+/* $Base Styling and Typography
+**************************************************************************/
+html{
+    font:#{($base-font-size/16px)*1em}/#{$line-height-ratio} $base-font;
+    overflow-y:scroll;
+    min-height:100%;
+    background: $background;
+    color: $copy;
+}
+body {height:100%;}
+// Elements with Heading Font
+h1,h2,h3,h4,h5 {
+  font-style: normal;
+  font-weight: 500;
+  font-family: $heading-font;
+}
+
+h1, .h1 { @include font-size($h1-size);}
+h2, .h2 { @include font-size($h2-size);}
+h3, .h3 { @include font-size($h3-size);}
+
+p,ul,ol {
+  // @include font-size(16px);
+  // margin-bottom:$base-spacing-unit;
+}
+
+ol, ul {
+  // list-style: inside;
+}
+
+ol {list-style-type: decimal;}
+ul {list-style-type: disc;}
+
+a { color: $primary; text-decoration: none; outline: 0; border-bottom: 1px solid transparent; @include vendor(transition, all .2s ease-in-out);}
+  a:hover, a:focus { color: $primary; }
+
+p a:hover {border-bottom: 1px solid $primary;}
+
+blockquote {
+  margin-bottom: $base-spacing-unit;
+  padding: $half-spacing-unit;
+  @include clearfix;
+}
+
+blockquote.short {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 640px;
+}
+  blockquote p {
+    margin:0;
+    font-style: italic;
+  }
+
+  blockquote cite {
+  clear:right;
+  float: right;
+  @include font-size($body);
+  }
+
+figure {
+  margin:0;
+}
+// ::selection {
+//   color: $background;
+//   background-color: $dark-green;
+// }
+// ::-moz-selection {
+//   color: $background;
+//   background-color: $dark-green;
+// }

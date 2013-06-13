@@ -1,0 +1,61 @@
+$gutter: 24px;
+
+// Grid wrapper element
+%grid, .gw {
+  list-style: none;
+  margin:0;
+  padding: 0;
+  margin-left: -$gutter;
+  letter-spacing: -0.31em; //fixing whitespace problem with inline-block
+  word-spacing: -0.43em; //fixing whitespace problem with inline-block
+}
+
+// Grid item base
+%g-item, .g {
+    display: inline-block;
+    padding-left: $gutter;
+    vertical-align: top;
+    letter-spacing: normal; //reverting
+    word-spacing: normal; //reverting
+    -webkit-box-sizing:border-box;
+       -moz-box-sizing:border-box;
+            box-sizing:border-box;
+}
+
+// Columns !!!! Likely unnecessary
+
+%one-whole, .one-whole { width: 100%;}
+%one-half, .one-half   { width: 50%;}
+
+%one-third, .one-third { width: 33.333%;}
+%two-thirds, .two-thirds { width: 66.666%;}
+
+%one-quarter, .one-quarter { width: 25%;}
+%three-quarters, .three-quarters { width: 75%;}
+
+%one-fifth, .one-fifth { width:20%;}
+%two-fifths, .two-fifths { width:40%;}
+%three-fifths, .three-fifths { width:60%;}
+%four-fifths, .four-fifths { width:80%;}
+
+
+// Mixin versions
+
+@mixin span($col:1, $total:1) {
+  width: percentage($col / $total);
+}
+
+// Push / Pull Functions
+
+@mixin push($left: 0, $total: 0) {
+  margin-left: percentage($left / $total);
+}
+
+@mixin pull($right: 0, $total:0) {
+  margin-right: percentage($right / $total);
+}
+
+@mixin place($left,$right,$total) {
+  @include push($left, $total);
+  @include pull($right, $total);
+}

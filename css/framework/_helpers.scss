@@ -1,0 +1,107 @@
+/* $Helper classes and Specific Mixins
+**************************************************************************/
+
+.demo {
+  background-color:#efefef;
+  color: #ccc;
+  padding: $half-spacing-unit;
+}
+
+.right {
+  float:right;
+  margin-left: $base-spacing-unit;
+}
+
+.left {
+  float: left;
+  margin-right: $base-spacing-unit;
+}
+.contact-links li{
+  list-style-type: none;
+}
+.wrap {
+  max-width: $start-width;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include media-query(1200px) {
+    max-width: 1100px;
+  }
+}
+
+.touch-hidden {
+  display: none;
+  @include media-query(700px){
+    display: inline;
+    }
+}
+
+.hide {
+  display: none;
+}
+
+.brand-light {
+  // background-color: $dark-green;
+}
+
+.brand-dark {
+  // background-color: $dark-grey;
+}
+.medium {font-size:$h2-size;}
+//Sizing
+
+
+.half, .one-third, .two-thirds {
+  float:left;
+  padding:0 $half-spacing-unit;
+}
+.whole {
+  width:100%;
+  margin:0;
+  padding:0;
+}
+
+
+.half {width: 50%;}
+.one-third {width: 33.33%;}
+.two-thirds {width: 66.66%;}
+
+.half {
+  &:first-child {padding-left:0;}
+}
+.half {
+  &:last-child {padding-right:0;}
+}
+
+//Grid Media Queries
+@media screen and (min-width: em(700)) {
+  .gold-lrg, .gold-sml {float:left;padding:0 $half-spacing-unit;}
+  .gold-lrg {width:62%;}
+  .gold-sml {width:38%;}
+  .gold-first {padding-right: $base-spacing-unit;}
+
+  .desk-half, .tab-half {
+    float:left;
+    padding:0 $half-spacing-unit;
+  }
+  .desk-whole, .tab-whole {
+  width:100%;
+  margin:0;
+  padding:0;
+}
+.tab-half, .desk-half {width: 50%;}
+ .desk-half, .tab-half {
+  &:first-child {padding-left:0;}
+}
+.desk-half, .tab-half {
+  &:last-child {padding-right:0;}
+}
+
+.desk-two-col p {
+  @include vendor(column-count, 2);
+  @include vendor(column-gap, 2em);
+}
+}
+
+.first {padding-left:0;clear:left;}
+.last {padding-right:0;}

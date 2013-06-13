@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Type Testing Demo</title>
+<meta name="description" content="">
+<meta name="author" content="Mark Michon">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <link rel="stylesheet" href="css/main.css"> -->
+<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<body>
+  <!-- <nav>
+    <ul class="toolbar">
+      <li><a href="" data-link="fonts" class="toolbar-item"><i class="icon-font"></i></a></li>
+      <li><a href="" data-link="settings" class="toolbar-item"><i class="icon-edit"></i><a/></li>
+      <li><a href="" class="toolbar-item"><i class="icon-heart"></i></a></li>
+    </ul>
+  </nav> -->
+  <div id="fonts" class="panel">
+    <div class="search-box">
+      <input type="text" name="" id="" placeholder="Search Fonts">
+    </div>
+    <div class="panel-options">
+      <ul class="font-list">
+
+      </ul>
+    </div>
+  </div>
+  <div id="properties">
+    <!-- Font Properties -->
+  </div>
+  <div id="content">
+
+  </div>
+<script type="text/html" id="template-element">
+  <%= content %>
+</script>
+
+<script type="text/html" id="template-properties">
+  <div>
+    <button class="newElement" data-element="p">P</button>
+    <button class="newElement" data-element="h1">H1</button>
+    <button class="newElement" data-element="h2">H2</button>
+  </div>
+  Font Size:<input data-style="fontSize" type="text" name="font-size" id="font-size" placeholder="Enter Font Size">
+  Weight:<input data-style="fontWeight" type="text" name="font-size" id="font-weight" placeholder="Font Weight">
+  Line Height:<input data-style="lineHeight" type="text" name="line-height" id="line-height" placeholder="Line Height">
+  Margin-bottom: <input data-style="marginBottom" type="text" name="" id="">
+</script>
+<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/underscore/underscore-min.js"></script>
+<script src="libs/backbone/backbone-min.js"></script>
+
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script> -->
+<script src="js/app.js"></script>
+</body>
+</html>

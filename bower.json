@@ -1,0 +1,10 @@
+{
+  "name": "typeapp-backbone",
+  "version": "0.0.1",
+  "main": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
