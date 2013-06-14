@@ -69,6 +69,7 @@ Element = Backbone.Model.extend({
         // "fontWeight": "bold",
         // "marginBottom": null,
         // "lineHeight": null,
+
         "content": "Click to begin editing..."
     },
     initialize: function(){
@@ -137,6 +138,9 @@ PropertiesView = Backbone.View.extend({
     }
 });
 
+
+
+
 //Element View
 ElementView = Backbone.View.extend({
     events: {
@@ -144,11 +148,15 @@ ElementView = Backbone.View.extend({
     },
     initialize: function() {
         this.template = _.template($("#template-element").html());
-        this.on('change', this.updateStyle);
+        this.model.on('change', this.render, this);
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
         this.$el.attr('contenteditable', true);
+        this.$el = this.updateStyle(this.$el);
+        console.log(this.$el);
+        // console.log("====rendering======");
+        // console.log(this.$el);
         activeModel = this.model; // Sets Active Model to most recently added element
         activeCid = this.model.cid;
         return this;
@@ -160,13 +168,22 @@ ElementView = Backbone.View.extend({
         // console.log(this.model);
         activeModel = this.model;
         activeCid = this.model.cid;
-        console.log(activeModel.toJSON());
         mediator.publish('activeChange', activeModel);
         return this.model;
     },
 
-    updateStyle: function() {
-
+    updateStyle: function(element) {
+        // console.log(this.model.toJSON());
+        // console.log(this.model.toJSON());
+        _.each(this.model.toJSON(), function(value, key){
+            // console.log(key + ':' + value);
+            if (key !== 'content' && key !== 'tag') {
+                element = element.css(key,value);
+            }
+        });
+        // console.log(element);
+        // this.render();
+        return element;
     }
 });
 
@@ -181,7 +198,8 @@ ElementsView = Backbone.View.extend({
         this.render();
         // this.on('change', this.render, this);
         elements.on('add', this.render, this);
-        this.listenTo(this, 'all', this.render);
+        elements.on('change', this.render, this);
+        // this.listenTo(this, 'all', this.render);
         // this.collection.listenTo(this, 'change', this.render);
 
     },
@@ -200,6 +218,7 @@ ElementsView = Backbone.View.extend({
             model: element
         });
         this.$el.append(elementView.render().el);
+        console.log('rendered');
         // console.log('renderElement called');
     }
 });
