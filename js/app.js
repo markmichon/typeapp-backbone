@@ -64,12 +64,6 @@ var activeModel;
 Element = Backbone.Model.extend({
     defaults: {
         "tag": "h1",
-        // "fontFamily": "'Helvetica Neue', Arial, sans-serif",
-        // "fontSize": "40px",
-        // "fontWeight": "bold",
-        // "marginBottom": null,
-        // "lineHeight": null,
-
         "content": "Click to begin editing..."
     },
     initialize: function(){
@@ -80,17 +74,28 @@ Element = Backbone.Model.extend({
     },
     setType: function(newType, newValue) {
         this.set(newType, newValue);
+    },
+    active: function(){
+
+        activeModel = this;
+        activeCid = this.cid;
+        mediator.publish('activeChange', activeCid);
+        return this;
     }
 });
+
+// Font = Backbone.Model.extend({
+//     defaults: {
+//         'family': 'Helvetica Neue'
+//     }
+// });
 
 // #Collection
 Elements = Backbone.Collection.extend({
     model: Element
-    // url: '#'
 });
 // #Views
 //MONEY
-//$('#content').append(new ElementView().render().$el);
 
 PropertiesView = Backbone.View.extend({
     events: {
@@ -99,7 +104,6 @@ PropertiesView = Backbone.View.extend({
     },
     initialize: function() {
         this.template = _.template($("#template-properties").html());
-        // activeModel.on('change', this.populateFields);
         mediator.subscribe('activeChange', this.populateFields);
     },
     render: function() {
@@ -108,10 +112,8 @@ PropertiesView = Backbone.View.extend({
     },
 
     createElement: function(e) {
-        // console.log($(e.currentTarget).data('element'));
         var thisTag = $(e.currentTarget).data('element');
         var newEle = new Element({tag: thisTag});
-        // console.log(newEle);
         elements.add(newEle);
 
     },
@@ -127,19 +129,14 @@ PropertiesView = Backbone.View.extend({
     populateFields: function() {
         var fields = $('input');
         var model = elements.get(activeCid);
-        console.log(model);
         fields.each(function(){
             propType = $(this).data('style');
-            // console.log(propType);
             if (model.get(propType) !== null) {
                 $(this).val(model.get(propType));
             }
         });
     }
 });
-
-
-
 
 //Element View
 ElementView = Backbone.View.extend({
@@ -149,14 +146,12 @@ ElementView = Backbone.View.extend({
     initialize: function() {
         this.template = _.template($("#template-element").html());
         this.model.on('change', this.render, this);
+        this.model.active();
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
         this.$el.attr('contenteditable', true);
         this.$el = this.updateStyle(this.$el);
-        console.log(this.$el);
-        // console.log("====rendering======");
-        // console.log(this.$el);
         activeModel = this.model; // Sets Active Model to most recently added element
         activeCid = this.model.cid;
         return this;
@@ -164,62 +159,48 @@ ElementView = Backbone.View.extend({
 
     // Sets Active Model to the selected element
     activate: function(e) {
-        // console.log('ACTIVATED');
-        // console.log(this.model);
-        activeModel = this.model;
-        activeCid = this.model.cid;
-        mediator.publish('activeChange', activeModel);
+        this.model.active();
         return this.model;
     },
 
     updateStyle: function(element) {
-        // console.log(this.model.toJSON());
-        // console.log(this.model.toJSON());
+        // Loops through each property of model
         _.each(this.model.toJSON(), function(value, key){
-            // console.log(key + ':' + value);
+            //sets element style to values from model
             if (key !== 'content' && key !== 'tag') {
                 element = element.css(key,value);
             }
         });
-        // console.log(element);
-        // this.render();
         return element;
     }
 });
 
 //Elements view
 ElementsView = Backbone.View.extend({
-    // model: elements,
     el: $('#content'),
 
     initialize: function() {
-        // console.log('elements view initialized');
-        elements = new Elements();
+        elements = new Elements(); //define collection (this could likely use refactoring)
         this.render();
-        // this.on('change', this.render, this);
         elements.on('add', this.render, this);
         elements.on('change', this.render, this);
-        // this.listenTo(this, 'all', this.render);
-        // this.collection.listenTo(this, 'change', this.render);
-
     },
     render: function() {
-        // console.log('appView Rendered!');
         var that = this;
-        that.$el.html('');
+        that.$el.html(''); //clears #content (could likely use refactoring)
+        //Loops through elements in collection and calls render
         _.each(elements.models, function (element){
             that.renderElement(element);
         }, this);
     },
 
-    renderElement: function(element) {
+    renderElement: function(element) { //renders individual element
         var elementView = new ElementView({
             tagName: element.get('tag'),
             model: element
         });
         this.$el.append(elementView.render().el);
         console.log('rendered');
-        // console.log('renderElement called');
     }
 });
 
@@ -238,25 +219,8 @@ HomeView = Backbone.View.extend({
     }
 });
 
-// elementView = new ElementView({tagName: element.get('tag'), model: element});
-// console.log(elementView.el);
 
-$(document).ready(function(){
-    appView = new HomeView();
-
-    // newElement = new Element({tag: 'h2'});
-    // elements.add(newElement);
-
-    // $('.newElement').on('click', function(e){
-    //     e.preventDefault();
-    //     var thisTag = $(this).data('element');
-    //     // console.log($(this).data('element'));
-    //     var newEle = new Element({tag: thisTag});
-    //     appView.collection.add(newEle);
-    // });
-
-
-});
+appView = new HomeView(); //initialize app
 
 
 })(jQuery);
